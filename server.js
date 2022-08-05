@@ -1,5 +1,25 @@
 //express 모듈 불러오기
-const express = require("express");
+const express = require('express');
+const mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '1234',
+    database : 'test'
+  });
+
+connection.connect();
+
+  
+connection.query('SELECT * FROM test123', function (error, results, fields) {
+    if (error) {
+        console.log(error);
+    }
+    console.log(results);
+});
+  
+connection.end();
 
 //express 사용
 const app = express();
@@ -89,15 +109,14 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-const wait = (callbackFunc, timeDelay) => new Promise((resolve) => {setTimeout(callbackFunc, timeDelay); resolve()})
 /**
  * @path {GET} http://localhost:3000/api/users
  * @description 요청 데이터 값이 없고 반환 값이 있는 GET Method
  */
 app.get("/api/users", async (req, res) => {
     var test = new JsonApi()
-
     test.setData = new ResourceObject('3', 'test');
+
     //유저 정보 반환
     res.json(test);
 })

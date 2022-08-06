@@ -19,9 +19,9 @@ CREATE TABLE comments(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,                 
   body VARCHAR(30) NOT NULL,
   peopleId INT,
-  articleId INT,
+  articlesId INT,
   FOREIGN KEY (peopleId) REFERENCES people(ID) ON UPDATE CASCADE,
-  FOREIGN KEY (articleId) REFERENCES articles(ID) ON UPDATE CASCADE
+  FOREIGN KEY (articlesId) REFERENCES articles(ID) ON UPDATE CASCADE
 )
 
 INSERT INTO comments VALUES (5, 'First!', 2, 1);
@@ -38,7 +38,9 @@ CREATE TABLE people(
 INSERT INTO people VALUES (2, 'Kim', 'JeongWon', 'shcrlk12');
 INSERT INTO people VALUES (9, 'Dan', 'Gabhardt', 'dgeb');
 `
+npm install -save knex
 
+npm install -save dotenv
 https://kth990303.tistory.com/36
 # Progress
 not yet complete! 😢

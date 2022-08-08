@@ -4,7 +4,7 @@ const Relationship = {
 
         },
         oneToMany : {
-            commnets : 'comments'
+            comments : 'comments'
         },
         manyToOne : {
             author : 'people'
@@ -12,7 +12,7 @@ const Relationship = {
         relatedUrl: 'http://example.com/articles/1',
         relationshipsUrl : 'http://example.com/articles/relationship/1'
     },
-    commnets : {
+    comments : {
         oneToOne: {
 
         },
@@ -23,8 +23,8 @@ const Relationship = {
             articles : 'articles',
             author : 'people'
         },
-        relatedUrl: 'http://example.com/articles/1/commnets',
-        relationshipsUrl : 'http://example.com/articles/1/relationship/commnets'
+        relatedUrl: 'http://example.com/articles/1/comments',
+        relationshipsUrl : 'http://example.com/articles/1/relationship/comments'
     },
     author : {
         oneToOne: {
@@ -32,7 +32,7 @@ const Relationship = {
         },
         oneToMany : {
             articles : 'articles',
-            commnets : 'commnets',
+            comments : 'comments',
         },
         manyToOne : {
             

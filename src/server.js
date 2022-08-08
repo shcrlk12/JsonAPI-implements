@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
-jsonapi.ok(1, 'articles');
+jsonapi.ok('1', 'articles');
 
 /**
  * 파라미터 변수 뜻

@@ -63,7 +63,6 @@ class DbMgr{
         let relationship = require('../db/config/relationship');
         let relationships = {};
         let NtoM = ['manyToOne', 'oneToMany'];
-        let test;
 
         for(const value of NtoM){
             for(const property in relationship[this.type][value]){

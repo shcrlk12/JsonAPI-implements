@@ -27,21 +27,22 @@ class JsonApi{
     }
 
     async ok(id, type){
-        const DbMgr = require('../db/dbMgr.js')(id, type)
+        let DbMgr = require('../db/dbMgr.js')(id, type)
        
         //1. data
-        let data = new ResourceObject(id, type);
+        let data = [];
+        let element = new ResourceObject(id, type);
 
         //1-1. set attributes
-        const attributes = await DbMgr.getAttributes();
-        data.setAttributes = attributes;
-
+        element.setAttributes = await DbMgr.getAttributes();
+        
         //1-2. set links
-        data.setlinks = this.getLink(false, type)
+        element.setlinks = this.getLink(false, type);
 
         //1-3. set relationships
-        const relationships = await DbMgr.getRelationships();
-        data.setRelationships = relationships;
+        element.setRelationships = await DbMgr.getRelationships();
+
+        data.push({...element})
         console.log("----------data----------")
         console.log(data)
 
@@ -49,7 +50,33 @@ class JsonApi{
         this.setData = data;
 
         //2. included
-        let included
+        let included = [];
+
+        for(const property in element.relationships){
+            const data = element.relationships[property].data;
+            for(const elem of data){
+                const type = property;
+                const tableName = elem.type;
+                const id = elem.id;
+
+                DbMgr = require('../db/dbMgr.js')(id, tableName);
+
+                console.log("type : " + type + " id : " + id + ' table : ' + tableName);
+                element = new ResourceObject(id, type);
+
+                element.setAttributes =  await DbMgr.getAttributes();
+
+                element.setlinks = this.getLink(false, type);
+
+                element.setRelationships = await DbMgr.getRelationships();
+               
+                included.push({...element})
+            }
+        }
+        
+        this.setIncluded = included;
+        console.log("----------included----------")
+        console.log(included)
     }
 
     getLink(isRelationship, type){
